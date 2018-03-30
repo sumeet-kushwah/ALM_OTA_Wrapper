@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <add key="ALMServer" value="YourALMURL/qcbin" />
+    <add key="ALMUser" value="ALMUSERID" />
+    <add key="ALMPassword" value="ALMPASSWORD" />
+    <add key="ALMDomain" value="ALMDOMAINNAME" />
+    <add key="ALMProject" value="ALMPROJECT" />
+  </appSettings>
+</configuration>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALM_Wrapper", "ALM_Wrapper\ALM_Wrapper.csproj", "{DAEA9647-F358-4D71-8C90-337BEA432894}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALM_Wrapper_Test", "ALM_Wrapper_Tests\ALM_Wrapper_Test.csproj", "{5EBC5C10-F523-4D45-943F-FC795CB0D0FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAEA9647-F358-4D71-8C90-337BEA432894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAEA9647-F358-4D71-8C90-337BEA432894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAEA9647-F358-4D71-8C90-337BEA432894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAEA9647-F358-4D71-8C90-337BEA432894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EBC5C10-F523-4D45-943F-FC795CB0D0FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EBC5C10-F523-4D45-943F-FC795CB0D0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EBC5C10-F523-4D45-943F-FC795CB0D0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EBC5C10-F523-4D45-943F-FC795CB0D0FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4794F6B6-DAC4-46D7-AA46-344689C06930}
+	EndGlobalSection
+EndGlobal
