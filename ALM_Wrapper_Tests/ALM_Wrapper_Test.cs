@@ -291,8 +291,8 @@ namespace UnitTestProject1
             Dictionary<String, String> defectDetails = new Dictionary<string, string>();
 
             defectDetails.Add("BG_SUMMARY", "Defect created using Automation");
-            defectDetails.Add("BG_USER_TEMPLATE_01", "BI");
-            defectDetails.Add("BG_DETECTED_IN_RCYC", "1014");
+            defectDetails.Add("BG_USER_TEMPLATE_01", "TEST");
+            defectDetails.Add("BG_DETECTED_IN_RCYC", "TEST");
             defectDetails.Add("BG_DETECTION_DATE", DateTime.Now.ToShortDateString());
             defectDetails.Add("BG_SEVERITY", "Sev-3");
             defectDetails.Add("BG_DETECTED_BY", "Sumeet.Kushwah");
