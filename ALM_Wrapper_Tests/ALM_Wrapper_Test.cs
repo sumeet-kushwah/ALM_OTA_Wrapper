@@ -17,7 +17,7 @@ namespace UnitTestProject1
             Console.WriteLine("Logged in to ALM");
         }
 
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void Verify_Requirements()
         {
@@ -199,7 +199,7 @@ namespace UnitTestProject1
 
         }
 
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void Verify_Releases()
         {
@@ -284,7 +284,7 @@ namespace UnitTestProject1
             aLM_CORE.Releases.ReleaseFolders.Delete("Releases", "Dummy1");
         }
 
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void Verify_Defects()
         {
@@ -292,7 +292,7 @@ namespace UnitTestProject1
 
             defectDetails.Add("BG_SUMMARY", "Defect created using Automation");
             defectDetails.Add("BG_USER_TEMPLATE_01", "TEST");
-            defectDetails.Add("BG_DETECTED_IN_RCYC", "TEST");
+            defectDetails.Add("BG_DETECTED_IN_RCYC", "1014");
             defectDetails.Add("BG_DETECTION_DATE", DateTime.Now.ToShortDateString());
             defectDetails.Add("BG_SEVERITY", "Sev-3");
             defectDetails.Add("BG_DETECTED_BY", "Sumeet.Kushwah");
@@ -534,7 +534,7 @@ namespace UnitTestProject1
             aLM_CORE.TestPlan.TestFolders.Delete("Subject\\Dummy2");
         }
 
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void Verify_TestSetFolders()
         {
@@ -587,7 +587,7 @@ namespace UnitTestProject1
 
         }
 
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void Verify_TestScripts()
         {
@@ -729,7 +729,7 @@ namespace UnitTestProject1
             Console.WriteLine("Done");
         }
 
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void Verify_TestFolder()
         {
@@ -823,7 +823,7 @@ namespace UnitTestProject1
             Console.WriteLine("Done");
         }
 
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void Verify_TestResources()
         {
