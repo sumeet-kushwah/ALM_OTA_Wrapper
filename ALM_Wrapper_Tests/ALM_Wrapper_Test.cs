@@ -858,6 +858,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test_AnalysisAndDashboardScripts()
         {
+            ////Analysis Scripts
             TDAPIOLELib.AnalysisItemFolder analysisItemFolder = aLM_CORE.Analysis.FindPrivateFolder();
             Console.WriteLine("ID of private folder : " + analysisItemFolder.ID);
 
@@ -875,7 +876,42 @@ namespace UnitTestProject1
             aLM_CORE.Analysis.RenameFolder(analysisItemFolder, "TestFolder2");
             Console.WriteLine("New Folder Name : " + analysisItemFolder.Name);
 
+            ///Dashboard Scripts
+            TDAPIOLELib.DashboardFolder dashboardFolderParent = aLM_CORE.Dashboard.CreateFolder(aLM_CORE.Dashboard.FindPrivateFolder(), "TestFolder1");
+
+            TDAPIOLELib.DashboardFolder dashboardFolder = aLM_CORE.Dashboard.CreateFolderPath("Private\\TestFolder1\\Dummy1\\Dummy2");
+            TDAPIOLELib.DashboardPage dashboardPage = aLM_CORE.Dashboard.CreatePage(dashboardFolder, "TESTPAGE1");
+
+            TDAPIOLELib.DashboardPageItem dashboardPage1 = aLM_CORE.Dashboard.AddAnalysisItemToDashboard(dashboardPage, analysisItem, 0, 0);
+            TDAPIOLELib.DashboardPageItem dashboardPage2 = aLM_CORE.Dashboard.AddAnalysisItemToDashboard(dashboardPage, analysisItem1, 0, 1);
+
+            foreach(TDAPIOLELib.DashboardFolder dashboardFolder1 in aLM_CORE.Dashboard.FindChildFolders(aLM_CORE.Dashboard.GetFolderObject("Private\\TestFolder1")))
+            {
+                Console.WriteLine("Folder found under Private\\TestFolder1 : " + dashboardFolder1.Name);
+            }
+
+            foreach (TDAPIOLELib.DashboardPage dp in aLM_CORE.Dashboard.FindChildPages(dashboardFolder))
+            {
+                Console.WriteLine("Dashboard page found under " + dashboardFolder.Name + " - " + dp.Name);
+            }
+
+            aLM_CORE.Dashboard.RenameFolder(dashboardFolder, "TestFolder2");
+            Console.WriteLine("New Dashboard Folder name is : " + dashboardFolder.Name);
+
+            aLM_CORE.Dashboard.RenamePage(dashboardPage, "PageName1");
+            Console.WriteLine("New Dashboard page name is : " + dashboardPage.Name);
+
+
+            aLM_CORE.Dashboard.DeletePageItem(dashboardPage1);
+            aLM_CORE.Dashboard.DeletePageItem(dashboardPage2);
+
+            aLM_CORE.Dashboard.DeletePage(dashboardPage);
+            aLM_CORE.Dashboard.DeleteFolder(dashboardFolder);
+
+            aLM_CORE.Dashboard.DeleteFolder(dashboardFolderParent);
+
             aLM_CORE.Analysis.DeleteFolder(analysisItemFolder);
+            aLM_CORE.Analysis.DeleteFolder(aLM_CORE.Analysis.GetFolderObject("Private\\TestFolder1"));
 
             Console.WriteLine("Done");
         }

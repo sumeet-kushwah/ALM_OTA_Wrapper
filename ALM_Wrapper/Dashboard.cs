@@ -59,28 +59,7 @@ namespace ALM_Wrapper
 
             return dashboardFolder;
         }
-
-        //public TDAPIOLELib.DashboardFolder CreateFolder(String FolderPath)
-        //{
-        //    TDAPIOLELib.DashboardFolderFactory dashboardFolderFactory = tDConnection.DashboardFolderFactory;
-        //    TDAPIOLELib.TDFilter tdFilter;
-        //    TDAPIOLELib.List list;
-        //    TDAPIOLELib.DashboardFolder dashboardFolder = null;
-
-        //    foreach (String folder in FolderPath.Split('\\'))
-        //    {
-        //        tdFilter = dashboardFolderFactory.Filter;
-        //        tdFilter["DF_NAME"] = folder;
-        //        list = dashboardFolderFactory.NewList(tdFilter.Text);
-        //        dashboardFolder = list[1];
-
-        //        dashboardFolderFactory = dashboardFolder.DashboardFolderFactory;
-        //    }
-
-        //    return dashboardFolder;
-        //}
-
-
+        
 
         public TDAPIOLELib.DashboardFolder CreateFolder(TDAPIOLELib.DashboardFolder parentFolder, String newFolderName)
         {
@@ -144,6 +123,72 @@ namespace ALM_Wrapper
             dashboardPageItemFactory.RemoveItem(dashboardPageItem.ID);
             return true;
         }
+
+        public TDAPIOLELib.DashboardFolder FindPublicFolder()
+        {
+            TDAPIOLELib.DashboardFolderFactory dashboardFolderFactory = tDConnection.DashboardFolderFactory;
+
+            TDAPIOLELib.TDFilter tDFilter = dashboardFolderFactory.Filter;
+            tDFilter["DF_NAME"] = "Public";
+            tDFilter["DF_OWNER"] = "__default__";
+
+            TDAPIOLELib.List list = dashboardFolderFactory.NewList(tDFilter.Text);
+
+            foreach (TDAPIOLELib.DashboardFolder DF in list)
+            {
+                if (DF.Name.ToUpper() == "PUBLIC")
+                {
+                    return DF;
+                }
+            }
+
+            return null;
+        }
+
+        public TDAPIOLELib.DashboardFolder FindPrivateFolder()
+        {
+            TDAPIOLELib.DashboardFolderFactory dashboardFolderFactory = tDConnection.DashboardFolderFactory;
+
+            TDAPIOLELib.TDFilter tDFilter = dashboardFolderFactory.Filter;
+            tDFilter["DF_NAME"] = "Private";
+            tDFilter["DF_OWNER"] = "__default__";
+
+            TDAPIOLELib.List list = dashboardFolderFactory.NewList(tDFilter.Text);
+
+            foreach (TDAPIOLELib.DashboardFolder DF in list)
+            {
+                if (DF.Name.ToUpper() == "PRIVATE")
+                {
+                    return DF;
+                }
+            }
+
+            return null;
+        }
+
+        public TDAPIOLELib.DashboardFolder GetFolderObject(String folderPath)
+        {
+            TDAPIOLELib.DashboardFolderFactory dashboardFolderFactory = tDConnection.DashboardFolderFactory;
+            TDAPIOLELib.TDFilter tdFilter;
+            TDAPIOLELib.List list;
+            TDAPIOLELib.DashboardFolder dashboardFolder = null;
+
+            foreach (String folder in folderPath.Split('\\'))
+            {
+                tdFilter = dashboardFolderFactory.Filter;
+                tdFilter["DF_NAME"] = folder;
+                list = dashboardFolderFactory.NewList(tdFilter.Text);
+                if (list.Count <= 0)
+                    throw (new Exception("Dashboard Folder Not Found : " + folder));
+                else
+                    dashboardFolder = list[1];
+
+                dashboardFolderFactory = dashboardFolder.DashboardFolderFactory;
+            }
+
+            return dashboardFolder;
+        }
+
 
     }
 }
