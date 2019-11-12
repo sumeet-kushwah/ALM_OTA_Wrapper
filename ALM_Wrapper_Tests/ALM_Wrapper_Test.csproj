@@ -38,8 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ALM_Wrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ALM_Wrapper">
       <HintPath>..\ALM_Wrapper\bin\Debug\ALM_Wrapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -59,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config.example" />
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

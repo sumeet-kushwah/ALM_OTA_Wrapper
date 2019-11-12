@@ -2,13 +2,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Configuration;
+using ALM_Wrapper;
 
 namespace UnitTestProject1
 {
     [TestClass]
     public class ALM_Wrapper_Test
     {
-        static ALM_Wrapper.ALM_CORE aLM_CORE = new ALM_Wrapper.ALM_CORE();
+        static ALM_CORE aLM_CORE = new ALM_CORE();
 
         [TestInitialize]
         public void SetUpALM()
@@ -17,7 +18,44 @@ namespace UnitTestProject1
             Console.WriteLine("Logged in to ALM");
         }
 
-        //[Ignore]
+        [TestMethod]
+        public void UpdateAutomationIndicator()
+        {
+            ////Get all tests from ALM
+
+            TDAPIOLELib.Recordset recordset = aLM_CORE.ExecuteQuery("Select TS_TEST_ID from test where TS_USER_TEMPLATE_06 is not null");
+            Console.WriteLine(recordset.RecordCount);
+            recordset.First();
+
+            TDAPIOLELib.Test test;
+
+
+            for (int Counter = 0; Counter < recordset.RecordCount; Counter++)
+            {
+
+                test = aLM_CORE.TestPlan.Test.GetObjectWithID(Convert.ToInt32(recordset[0]));
+
+                if (test["TS_USER_TEMPLATE_06"] == "Y" && (test["TS_STATUS"] != "Ready For Automation" && test["TS_STATUS"] != "Automated"))
+                {
+                    Console.WriteLine(test.ID);
+                    test["TS_STATUS"] = "Automated";
+                    test.Post();
+                }
+                else if (test["TS_USER_TEMPLATE_06"] == "N" && (test["TS_STATUS"] != "Ready For Automation" && test["TS_STATUS"].ToString().ToUpper() != "Cannot be Automated".ToUpper()))
+                {
+                    Console.WriteLine(test.ID);
+                    test["TS_STATUS"] = "Cannot be automated";
+                    test.Post();
+                }
+
+                recordset.Next();
+            }
+
+
+
+        }
+
+        [Ignore]
         [TestMethod]
         public void Verify_Requirements()
         {
@@ -154,7 +192,7 @@ namespace UnitTestProject1
             aLM_CORE.TestPlan.TestFolders.Delete("Subject\\Dummy1");
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void Verify_Cycles()
         {
@@ -199,7 +237,7 @@ namespace UnitTestProject1
 
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void Verify_Releases()
         {
@@ -231,7 +269,7 @@ namespace UnitTestProject1
 
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void verify_ReleaseFolders()
         {
@@ -284,7 +322,7 @@ namespace UnitTestProject1
             aLM_CORE.Releases.ReleaseFolders.Delete("Releases", "Dummy1");
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void Verify_Defects()
         {
@@ -392,7 +430,7 @@ namespace UnitTestProject1
             Console.WriteLine("Done");
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void verify_TestSets()
         {
@@ -534,7 +572,7 @@ namespace UnitTestProject1
             aLM_CORE.TestPlan.TestFolders.Delete("Subject\\Dummy2");
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void Verify_TestSetFolders()
         {
@@ -587,7 +625,7 @@ namespace UnitTestProject1
 
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void Verify_TestScripts()
         {
@@ -729,7 +767,7 @@ namespace UnitTestProject1
             Console.WriteLine("Done");
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void Verify_TestFolder()
         {
@@ -823,7 +861,7 @@ namespace UnitTestProject1
             Console.WriteLine("Done");
         }
 
-        //[Ignore]
+        [Ignore]
         [TestMethod]
         public void Verify_TestResources()
         {
@@ -854,13 +892,15 @@ namespace UnitTestProject1
             aLM_CORE.TestResources.DeleteFolder(aLM_CORE.TestResources.GetFolderFromPath("Resources\\Test"));
         }
 
-        //[Ignore]
+        
         [TestMethod]
         public void Test_AnalysisAndDashboardScripts()
         {
             ////Analysis Scripts
             TDAPIOLELib.AnalysisItemFolder analysisItemFolder = aLM_CORE.Analysis.FindPrivateFolder();
             Console.WriteLine("ID of private folder : " + analysisItemFolder.ID);
+
+            
 
             analysisItemFolder = aLM_CORE.Analysis.FindPublicFolder();
             Console.WriteLine("ID of Public folder : " + analysisItemFolder.ID);
@@ -869,8 +909,22 @@ namespace UnitTestProject1
             analysisItemFolder = aLM_CORE.Analysis.CreateFolderPath("Private\\TestFolder1\\Dummy2\\Dummy3");
 
             TDAPIOLELib.AnalysisItem analysisItem = aLM_CORE.Analysis.CreateExcelReport(analysisItemFolder, "FindAllBugs", "Select * from Bug");
-
+            
             analysisItem = aLM_CORE.Analysis.CreateDefectSummaryGraph(analysisItemFolder, "DefectFirstGraph", "BG_STATUS", ALM_Wrapper.Analysis.DefectSummaryGraphSumOF.ActualFixTime, "BG_DETECTED_IN_REL", "");
+
+            Console.WriteLine(analysisItem.LayoutData.ToString());
+
+            TDAPIOLELib.AnalysisItemFileFactory analysisItemFileFactory = analysisItem.AnalysisItemFileFactory;
+
+            foreach (TDAPIOLELib.AnalysisItemFile aif in analysisItemFileFactory.NewList(""))
+            {
+                aif.SetFilePath("C:\\Temp");
+                aif.Download();
+            }
+
+            //TDAPIOLELib.Gra
+
+
             TDAPIOLELib.AnalysisItem analysisItem1 = aLM_CORE.Analysis.CreateDefectAgeGraph(analysisItemFolder, "Defect First Age Graph", "BG_RESPONSIBLE", ALM_Wrapper.Analysis.DefectSummaryGraphSumOF.None, ALM_Wrapper.Analysis.DefectAgeGrouping.NoGrouping, "");
 
             aLM_CORE.Analysis.RenameFolder(analysisItemFolder, "TestFolder2");

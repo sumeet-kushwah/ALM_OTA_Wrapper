@@ -90,9 +90,10 @@ namespace ALM_Wrapper
         /// <para/>true if successfull
         /// </summary>
         /// <returns>true if successfull</returns>
-        public Boolean LogoutALM()
+        private Boolean LogoutALM()
         {
-            
+            try
+            {
                 if (tDConnection.ProjectConnected == true)
                 {
                     tDConnection.DisconnectProject();
@@ -105,6 +106,13 @@ namespace ALM_Wrapper
 
                 tDConnection.ReleaseConnection();
                 return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return false;
+            }
+                
             
         }
 
@@ -115,7 +123,14 @@ namespace ALM_Wrapper
         /// <returns>return true if successfull</returns>
         public Boolean IsProjectConnected()
         {
-            return tDConnection.ProjectConnected;
+            try
+            {
+                return tDConnection.ProjectConnected;
+            } catch
+            {
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -125,7 +140,15 @@ namespace ALM_Wrapper
         /// <returns>return true if successfull</returns>
         public Boolean IsLoggedIn()
         {
-            return tDConnection.LoggedIn;
+            try
+            {
+                return tDConnection.LoggedIn;
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
 
 

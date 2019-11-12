@@ -61,24 +61,6 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="OTAREPORTLib">
-      <Guid>{A0887853-C86E-11D5-9D7A-000102E0AC0C}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="OTAXMLLib">
-      <Guid>{22D084E1-C60F-11D4-9D5C-0001029DEBEB}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="TDAPIOLELib">
       <Guid>{F645BD06-E1B4-4E6A-82FB-E97D027FD456}</Guid>
       <VersionMajor>1</VersionMajor>

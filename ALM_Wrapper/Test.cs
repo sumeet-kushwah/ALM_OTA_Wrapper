@@ -22,6 +22,13 @@ namespace ALM_Wrapper
             this.tDConnection = OALMConnection;
         }
 
+
+        public TDAPIOLELib.List GetTestsWithFilters(TDAPIOLELib.TDFilter tDFilter)
+        {
+            TDAPIOLELib.TestFactory OTestFactory = tDConnection.TestFactory as TDAPIOLELib.TestFactory;
+            return OTestFactory.NewList(tDFilter.Text);
+        }
+
         /// <summary>
         /// Finds Test plan Test case using test case ID. 
         /// <para/> returns TDAPIOLELib.Test Object
@@ -467,6 +474,47 @@ namespace ALM_Wrapper
                 }
             }
                 
+            return true;
+        }
+
+        /// <summary>
+        /// Add Test Configurations for a test plan test
+        /// <para/> returns TDAPIOLELib.TestConfig Object if successfull
+        /// </summary>
+        /// <param name="test">TDAPIOLELib.Test Object</param>
+        /// <param name="testConfigName">Name for the new test config</param>
+        /// <param name="testConfigDesc">Description for the new test config</param>
+        /// <returns>return TDAPIOLELib.TestConfig Object if successfull</returns>
+        public TDAPIOLELib.TestConfig AddTestConfiguration(TDAPIOLELib.Test test, String testConfigName, String testConfigDesc = "")
+        {
+            TDAPIOLELib.ITestConfigFactory testConfigFactory = test.TestConfigFactory;
+            TDAPIOLELib.TestConfig testConfig = testConfigFactory.AddItem(System.DBNull.Value);
+
+            testConfig["TSC_NAME"] = testConfigName;
+            testConfig["TSC_DESC"] = testConfigDesc;
+
+            testConfig.Post();
+            return testConfig;
+        }
+
+        public Boolean AddParamValueForTestConfig(TDAPIOLELib.TestConfig testConfig, String ParamName, String ParamValue)
+        {
+            TDAPIOLELib.ISupportParameterValues supportParameterValues;
+            TDAPIOLELib.ParameterValueFactory parameterValueFactory;
+            
+
+            supportParameterValues = testConfig as TDAPIOLELib.ISupportParameterValues;
+            parameterValueFactory = supportParameterValues.ParameterValueFactory;
+
+            foreach (TDAPIOLELib.ParameterValue parameterValue in parameterValueFactory.NewList(""))
+            {
+                if (parameterValue.Name == ParamName)
+                {
+                    parameterValue.ActualValue = ParamValue;
+                    parameterValue.Post();
+                }
+            }
+
             return true;
         }
 
